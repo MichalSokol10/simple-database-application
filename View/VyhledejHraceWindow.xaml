@@ -1,0 +1,33 @@
+﻿<Window x:Class="BCSH1_SEM_SOKOL.View.VyhledejHraceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BCSH1_SEM_SOKOL.View"
+        mc:Ignorable="d"
+        Title="Vyhledané vesnice" Height="470" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0" 
+          ItemsSource="{Binding VyfiltrovaneVesnice}" IsReadOnly="True" 
+          AutoGenerateColumns="false" 
+          Margin="10"
+          ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Souřadnice X" Binding="{Binding X}"/>
+                <DataGridTextColumn Header="Souřadnice Y" Binding="{Binding Y}"/>
+                <DataGridTextColumn Header="Název" Binding="{Binding Jmeno}"/>
+                <DataGridTextColumn Header="Majitel" Binding="{Binding Vlastnik.Jmeno}"/>
+                <DataGridTextColumn Header="Národ" Binding="{Binding Vlastnik.Narod}"/>
+                <DataGridTextColumn Header="Populace" Binding="{Binding Populace}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="1" Content="Ulož" Width="150" Height="25" Command="{Binding UlozCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10"/>
+    </Grid>
+</Window>

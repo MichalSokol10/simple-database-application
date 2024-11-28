@@ -1,0 +1,59 @@
+﻿<Window x:Class="BCSH1_SEM_SOKOL.View.ZobrazAlianciWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BCSH1_SEM_SOKOL.View"
+        mc:Ignorable="d"
+        Title="Informace o alianci" Height="280" Width="850" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="170"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Text="ALIANCE" Grid.Row="0" Grid.ColumnSpan="2" IsEnabled="False" Width="150" Height="25" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+        <TextBox Text="HRÁČI" Grid.Row="0" Grid.Column="2"  IsEnabled="False" Width="150" Height="25" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+        <!-- První sloupec s názvy vlastností -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
+            <TextBox Text="ID:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+            <TextBox Text="Zkratka:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+            <TextBox Text="Počet hráčů:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+            <TextBox Text="Celková populace:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Druhý sloupec s hodnotami vlastností -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+            <TextBox Text="{Binding Aliance.ID}" Width="150" Height="25" IsEnabled="False"/>
+            <TextBox Text="{Binding Aliance.Zkratka}" Width="150" Height="25" IsEnabled="False"/>
+            <TextBox Text="{Binding PocetHracuAliance}" Width="150" Height="25" IsEnabled="False"/>
+            <TextBox Text="{Binding CelkovaPopulaceAliance}" Width="150" Height="25" IsEnabled="False"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" Grid.Column="3" 
+          ItemsSource="{Binding HraciAliance}" 
+          AutoGenerateColumns="False" 
+          Margin="10"
+          ColumnWidth="*"
+          SelectedItem="{Binding VybranyHrac}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno}"/>
+                <DataGridTextColumn Header="Národ" Binding="{Binding Narod}"/>
+                <DataGridTextColumn Header="Počet vesnic" Binding="{Binding Vesnice.Count}"/>
+                <DataGridTextColumn Header="Populace hráče" Binding="{Binding CelkovaPopulace}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="ZAVŘÍT" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0 ,0,10" Width="150" Height="25" Command="{Binding ZavritCommand}"/>
+
+        <Button Content="ODEBRAT" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" Margin="0,0 ,0,10" Width="150" Height="25" Command="{Binding OdebratCommand}"/>
+    </Grid>
+</Window>

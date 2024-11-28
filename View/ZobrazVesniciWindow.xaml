@@ -1,0 +1,41 @@
+﻿<Window x:Class="BCSH1_SEM_SOKOL.View.ZobrazVesniciWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Informace o vesnici" Height="280" Width="360" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Text="VESNICE" IsEnabled="False" Width="150" Height="25" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.ColumnSpan="2"/>
+
+        <!-- První sloupec s názvy vlastností -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
+            <TextBox Text="ID:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+            <TextBox Text="Souřadnice X:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+            <TextBox Text="Souřadnice Y:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+            <TextBox Text="Jméno vesnice:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+            <TextBox Text="Majitel vesnice:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+            <TextBox Text="Populace vesnice:" IsEnabled="False" Width="150" Height="25" TextAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Druhý sloupec s hodnotami vlastností -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+            <TextBox Text="{Binding Vesnice.ID}" Width="150" Height="25" IsEnabled="False"/>
+            <TextBox Text="{Binding Vesnice.X}" Width="150" Height="25" IsEnabled="False"/>
+            <TextBox Text="{Binding Vesnice.Y}" Width="150" Height="25" IsEnabled="False"/>
+            <TextBox Text="{Binding Vesnice.Jmeno}" Width="150" Height="25" IsEnabled="False"/>
+            <TextBox Text="{Binding Vesnice.Vlastnik.Jmeno}" Width="150" Height="25" IsEnabled="False"/>
+            <TextBox Text="{Binding Vesnice.Populace}" Width="150" Height="25" IsEnabled="False"/>
+        </StackPanel>
+
+        <Button Content="ZAVŘÍT" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0 ,0,10" Width="150" Height="25" Command="{Binding ZavritCommand}"/>
+    </Grid>
+</Window>

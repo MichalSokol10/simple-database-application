@@ -1,0 +1,232 @@
+﻿<Window x:Class="BCSH1_SEM_SOKOL.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BCSH1_SEM_SOKOL"
+        mc:Ignorable="d"
+        Title="Databázová aplikace prohlížečové hry Travian" Height="900" Width="1200" ResizeMode="NoResize" WindowState="Maximized">
+
+    <Grid>
+        <TabControl>
+            <TabItem Header="Vesnice">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" Margin="10,0">
+                                <TextBox Width="150" Height="25" Text="Jméno vesnice" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Souřadnice X" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Souřadnice Y" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Jméno hráče" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Populace" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                
+
+                                <Button Content="PŘIDAT" Command="{Binding PridatCommand}" Width="150" Height="25" Margin="0,20,0,5"/>
+                                <Button Content="ODEBRAT" Command="{Binding OdebratCommand}" Width="150" Height="25" Margin="0,5"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
+                                <TextBox Width="150" Height="25" Text="{Binding JmenoVesnice}" MaxLength="50" Margin="0,5"/>
+                                <TextBox Width="150" Height="25" Text="{Binding X}" MaxLength="4" Margin="0,5" LostFocus="XY_LostFocus"/>
+                                <TextBox Width="150" Height="25" Text="{Binding Y}" MaxLength="4" Margin="0,5" LostFocus="XY_LostFocus"/>
+                                <ComboBox Width="150" Height="25" Margin="0,5" ItemsSource="{Binding _hraciDataGrid}" DisplayMemberPath="Jmeno" SelectedValuePath="ID" SelectedValue="{Binding VybranyHracID}"/>
+                                <TextBox Width="150" Height="25" Text="{Binding Populace}" MaxLength="10" Margin="0,5" LostFocus="Population_LostFocus"/>
+                                <Button Content="UPRAVIT" Command="{Binding UpravitCommand}" Width="150" Height="25" Margin="0,20,0,5"/>
+                                <Button Content="ZOBRAZ" Command="{Binding ZobrazCommand}" Width="150" Height="25" Margin="0,5"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.ColumnSpan="2" Orientation="Vertical" Grid.Row="1">
+                            <TextBox Text="FILTR" Grid.Row="0" Grid.ColumnSpan="2"  IsEnabled="False" Width="150" Height="25" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Margin="10,0">
+                                <TextBox Width="150" Height="25" Text="Min. populace hráče" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Max. populace hráče" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Min. populace vesnice" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Max. populace vesnice" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Říman" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Gal" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Germán" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Sparťan" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Egypťan" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Hun" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Nataři" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0">
+                                <TextBox Width="150" Height="25" Text="{Binding MinPopulaceHrace}" Margin="0,5" TextAlignment="Center" LostFocus="Population_LostFocus"/>
+                                <TextBox Width="150" Height="25" Text="{Binding MaxPopulaceHrace}" Margin="0,5" TextAlignment="Center" LostFocus="Population_LostFocus"/>
+                                <TextBox Width="150" Height="25" Text="{Binding MinPopulaceVesnice}" Margin="0,5" TextAlignment="Center" LostFocus="Population_LostFocus"/>
+                                <TextBox Width="150" Height="25" Text="{Binding MaxPopulaceVesnice}" Margin="0,5" TextAlignment="Center" LostFocus="Population_LostFocus"/>
+                                <CheckBox IsChecked="{Binding Riman}" Width="20" Height="25" Margin="0,5"/>
+                                <CheckBox IsChecked="{Binding Gal}" Width="20" Height="25" Margin="0,5"/>
+                                <CheckBox IsChecked="{Binding German}" Width="20" Height="25" Margin="0,5"/>
+                                <CheckBox IsChecked="{Binding Spartan}" Width="20" Height="25" Margin="0,5"/>
+                                <CheckBox IsChecked="{Binding Egyptan}" Width="20" Height="25" Margin="0,5"/>
+                                <CheckBox IsChecked="{Binding Hun}" Width="20" Height="25" Margin="0,5"/>
+                                <CheckBox IsChecked="{Binding Natari}" Width="20" Height="25" Margin="0,5"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.ColumnSpan="2" Orientation="Vertical" Grid.Row="3">
+                                <Button Content="VYHLEDAT" Command="{Binding VyhledatCommand}" Width="150" Height="25" Margin="0,5"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Vertical" Margin="10,0">
+                                <Button Content="NAČÍST" Command="{Binding NacistCommand}" Width="150" Height="25" Margin="0,20,0,5"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Vertical">
+                                <Button Content="ULOŽIT" Command="{Binding UlozitCommand}" Width="150" Height="25" Margin="0,20,0,5"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                    <DataGrid Grid.Column="1" 
+          ItemsSource="{Binding _vesniceDataGrid}" 
+          AutoGenerateColumns="False" 
+          Margin="10"
+          ColumnWidth="*"
+          SelectedItem="{Binding VybranaVesnice}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Souřadnice X" Binding="{Binding X}"/>
+                            <DataGridTextColumn Header="Souřadnice Y" Binding="{Binding Y}"/>
+                            <DataGridTextColumn Header="Název" Binding="{Binding Jmeno}"/>
+                            <DataGridTextColumn Header="Majitel" Binding="{Binding Vlastnik.Jmeno}"/>
+                            <DataGridTextColumn Header="Národ" Binding="{Binding Vlastnik.Narod}"/>
+                            <DataGridTextColumn Header="Populace" Binding="{Binding Populace}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Hráči">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="10,0">
+                                <TextBox Width="150" Height="25" Text="Jméno hráče" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Národ hráče" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <TextBox Width="150" Height="25" Text="Aliance" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+                                <Button Content="PŘIDAT" Command="{Binding PridatHraceCommand}" Width="150" Height="25" Margin="0,20,0,5"/>
+                                <Button Content="ODEBRAT" Command="{Binding OdebratHraceCommand}" Width="150" Height="25" Margin="0,5"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <TextBox Width="150" Height="25" Text="{Binding JmenoHrace}" MaxLength="50" Margin="0,5"/>
+                                <ComboBox Width="150" Height="25" Margin="0,5" ItemsSource="{Binding _narodyComboBox}" SelectedValue="{Binding VybranyNarod}"/>
+                                <ComboBox Width="150" Height="25" Margin="0,5" ItemsSource="{Binding _alianceComboBox}" DisplayMemberPath="Zkratka" SelectedValuePath="ID" SelectedValue="{Binding VybranaAlianceID}"/>
+                                <Button Content="UPRAVIT" Command="{Binding UpravitHraceCommand}" Width="150" Height="25" Margin="0,20,0,5"/>
+                                <Button Content="ZOBRAZ" Command="{Binding ZobrazHraceCommand}" Width="150" Height="25" Margin="0,5"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.ColumnSpan="2" Orientation="Vertical" Grid.Row="1">
+                                <TextBox Text="VYHLEDÁVÁNÍ POMOCÍ JMÉNA HRÁČE" IsEnabled="False" Width="250" Height="25" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,5"/>
+                                <TextBox Width="150" Height="25" Text="{Binding HledaneJmeno}" Margin="0,5" TextAlignment="Center"/>
+                                <Button Content="VYHLEDAT" Command="{Binding VyhledatHraceCommand}" Width="150" Height="25" Margin="0,5"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </StackPanel>
+                    <DataGrid Grid.Column="1" 
+          ItemsSource="{Binding _hraciDataGrid}" 
+          AutoGenerateColumns="False" 
+          Margin="10"
+          ColumnWidth="*"
+          SelectedItem="{Binding VybranyHrac}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Jméno" Binding="{Binding Jmeno}"/>
+                            <DataGridTextColumn Header="Národ" Binding="{Binding Narod}"/>
+                            <DataGridTextColumn Header="Počet vesnic" Binding="{Binding Vesnice.Count}"/>
+                            <DataGridTextColumn Header="Populace" Binding="{Binding CelkovaPopulace}"/>
+                            <DataGridTextColumn Header="Aliance" Binding="{Binding Aliance.Zkratka}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Aliance">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="10,0">
+                                <TextBox Width="150" Height="25" Text="Zkratka aliance" Margin="0,5" IsEnabled="False" TextAlignment="Center"/>
+
+                                <Button Content="PŘIDAT" Command="{Binding PridatAlianciCommand}" Width="150" Height="25" Margin="0,20,0,5"/>
+                                <Button Content="ODEBRAT" Command="{Binding OdebratAlianciCommand}" Width="150" Height="25" Margin="0,5"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <TextBox Width="150" Height="25" Text="{Binding JmenoAliance}" MaxLength="5" Margin="0,5"/>
+
+                                <Button Content="UPRAVIT" Command="{Binding UpravitAlianciCommand}" Width="150" Height="25" Margin="0,20,0,5"/>
+                                <Button Content="ZOBRAZ" Command="{Binding ZobrazAlianciCommand}" Width="150" Height="25" Margin="0,5"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.ColumnSpan="2" Orientation="Vertical" Grid.Row="1">
+                                <TextBox Text="VYHLEDÁVÁNÍ POMOCÍ ZKRATKY ALIANCE" IsEnabled="False" Width="250" Height="25" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,5"/>
+                                <TextBox Width="150" Height="25" Text="{Binding HledanaAliance}" Margin="0,5" TextAlignment="Center"/>
+                                <Button Content="VYHLEDAT" Command="{Binding VyhledatAlianciCommand}" Width="150" Height="25" Margin="0,5"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                    <DataGrid Grid.Column="1" 
+          ItemsSource="{Binding _alianceDataGrid}" 
+          AutoGenerateColumns="False" 
+          Margin="10"
+          ColumnWidth="*"
+          SelectedItem="{Binding VybranaAliance}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Zkratka" Binding="{Binding Zkratka}"/>
+                            <DataGridTextColumn Header="Počet členů" Binding="{Binding Hraci.Count}"/>
+                            <DataGridTextColumn Header="Populace" Binding="{Binding PopulaceAliance}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
